@@ -20,8 +20,10 @@ def fetch_data():
             if ext == '.xlsx':
                 df = pd.read_excel(os.path.join(root, f), header=None)
                 article = Article()
-                article.article_number = df[1][7]
-                article.article_desc = df[7][7]
+                article.number = df[1][7]
+                article.desc = df[7][7]
+                article.opbr_groep = '002' # zuivel, Thise
+                article.zoekcode = 'Thise'
                 article.d['Legal decleration'] = df[7][8]
                 article.d['D.C. Location'] = df[7][9]
                 article.d['Brand'] = df[1][8]
@@ -78,8 +80,10 @@ def fetch_data():
                 article.d['Country of origin'] = df[6][40]
 
                 artikel = etree.SubElement(artikelen, 'ARTIKEL')
-                etree.SubElement(artikel, "ART_NUMMER").text = str(article.article_number)
-                etree.SubElement(artikel, "ART_OMSCHRIJVING").text = str(article.article_desc)
+                etree.SubElement(artikel, "ART_NUMMER").text = str(article.number)
+                etree.SubElement(artikel, "ART_OMSCHRIJVING").text = str(article.desc)
+                etree.SubElement(artikel, "ART_ZOEKCODE").text = str(article.zoekcode)
+                etree.SubElement(artikel, "ART_OPBRENGSTGROEP").text = str(article.opbr_groep)
 
                 vrije_rubrieken = etree.SubElement(artikel, 'ART_VRIJERUBRIEKEN')
                 for key, value in article.d.items():
