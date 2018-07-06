@@ -50,7 +50,7 @@ def fetch_data():
 
                 article.d['Pallet Format'] = df[2][16]
                 article.d['Pallet Amount per layer'] = remove_letters(df[6][16])
-                article.d['Pallyet Amount layers'] = remove_letters(df[9][16])
+                article.d['Pallet Amount layers'] = remove_letters(df[9][16])
                 article.d['Pallet Gross weight (kg)'] = remove_letters(df[6][17])
                 article.d['Pallet Total cases'] = remove_letters(df[12][16])
                 article.d['Pallet Height (cm)'] = remove_letters(df[12][17])
