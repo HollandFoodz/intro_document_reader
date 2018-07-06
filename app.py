@@ -81,8 +81,8 @@ def fetch_data():
 
                 artikel = etree.SubElement(artikelen, 'ARTIKEL')
                 etree.SubElement(artikel, "ART_NUMMER").text = str(article.number)
-                etree.SubElement(artikel, "ART_OMSCHRIJVING").text = str(article.desc)
                 etree.SubElement(artikel, "ART_ZOEKCODE").text = str(article.zoekcode)
+                etree.SubElement(artikel, "ART_OMSCHRIJVING").text = str(article.desc)
                 etree.SubElement(artikel, "ART_OPBRENGSTGROEP").text = str(article.opbr_groep)
 
                 vrije_rubrieken = etree.SubElement(artikel, 'ART_VRIJERUBRIEKEN')
