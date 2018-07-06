@@ -78,7 +78,7 @@ def fetch_data():
 
                 vrije_rubrieken = etree.SubElement(artikel, 'ART_VRIJERUBRIEKEN')
                 for key, value in article.d.items():
-                    vrije_rubriek = etree.SubElement(artikel, 'ART_VRIJERUBRIEK')
+                    vrije_rubriek = etree.SubElement(vrije_rubrieken, 'ART_VRIJERUBRIEK')
                     etree.SubElement(vrije_rubriek, "ART_VRIJERUBRIEK_NAAM").text = str(key).strip()
                     etree.SubElement(vrije_rubriek, "ART_VRIJERUBRIEK_WAARDE").text = str(value).strip()
 
