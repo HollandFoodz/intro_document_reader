@@ -2,6 +2,7 @@ import pandas as pd
 import os
 from lxml import etree
 import re
+import math
 
 class Article():
 
@@ -22,8 +23,10 @@ def fetch_data():
                 article = Article()
                 article.number = df[1][7]
                 article.desc = df[7][7]
-                article.opbr_groep = '002' # zuivel, Thise
+                article.opbr_groep = '024' # biologische zuivel, Thise
                 article.zoekcode = 'Thise'
+                article.ean_code = None
+
                 article.d['Legal decleration'] = df[7][8]
                 article.d['D.C. Location'] = df[7][9]
                 article.d['Brand'] = df[1][8]
@@ -79,11 +82,27 @@ def fetch_data():
                 article.d['Tax percentage'] = remove_letters(df[6][39])
                 article.d['Country of origin'] = df[6][40]
 
+
+                if str(article.d['OP EAN Code']) == 'nan':
+                    if str(article.d['DU EAN Code']) == 'nan':
+                        article.ean_code = article.d['CP EAN Code']
+                    else:
+                        article.ean_code = article.d['DU EAN Code']
+                else:
+                    article.ean_code = article.d['OP EAN Code']
+
+
                 artikel = etree.SubElement(artikelen, 'ARTIKEL')
                 etree.SubElement(artikel, "ART_NUMMER").text = str(article.number)
                 etree.SubElement(artikel, "ART_ZOEKCODE").text = str(article.zoekcode)
                 etree.SubElement(artikel, "ART_OMSCHRIJVING").text = str(article.desc)
                 etree.SubElement(artikel, "ART_OPBRENGSTGROEP").text = str(article.opbr_groep)
+
+                ean_codes = etree.SubElement(artikel, 'ART_EANCODES')
+                ean_code = etree.SubElement(ean_codes, 'ART_EANCODE')
+                etree.SubElement(ean_code, 'ART_EANCODE_NUMMER').text = str(article.ean_code).strip()
+                etree.SubElement(ean_code, 'ART_EANCODE_ISSTANDAARD').text = 'true'
+
 
                 vrije_rubrieken = etree.SubElement(artikel, 'ART_VRIJERUBRIEKEN')
                 for key, value in article.d.items():
